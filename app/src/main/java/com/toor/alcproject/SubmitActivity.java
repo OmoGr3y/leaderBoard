@@ -5,8 +5,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SubmitActivity extends AppCompatActivity {
+
+    private static Retrofit.Builder builder = new Retrofit.Builder()
+            .baseUrl("https://docs.google.com/forms/d/e/")
+            .addConverterFactory(GsonConverterFactory.create());
+
+    public static Retrofit retrofit = builder.build();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,5 +33,47 @@ public class SubmitActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        final EditText firstName = (EditText) findViewById(R.id.first_name);
+        final EditText lastName = (EditText) findViewById(R.id.last_name);
+        final EditText email = (EditText) findViewById(R.id.email);
+        final EditText project = (EditText) findViewById(R.id.project);
+
+        findViewById(R.id.btn_execute).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                executeSendFeedbackForm(
+                        firstName.getText().toString(),
+                        lastName.getText().toString(),
+                        email.getText().toString(),
+                        project.getText().toString()
+                );
+            }
+        });
+
+
+
+
+
+    }
+
+    private void executeSendFeedbackForm(String firstname, String lastname, String email, String project) {
+
+        UserClient userClient = retrofit.create(UserClient.class);
+        Call<ResponseBody> call =  userClient.sendUserFeedback(
+                firstname, lastname, email, project
+        );
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Toast.makeText(SubmitActivity.this, "success", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(SubmitActivity.this, "error", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
