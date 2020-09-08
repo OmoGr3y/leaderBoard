@@ -39,9 +39,13 @@ public class LearnerAdapter extends RecyclerView.Adapter<LeaderViewHolder> {
     public void onBindViewHolder(@NonNull LeaderViewHolder holder, int position) {
         String url ="https://res.cloudinary.com/mikeattara/image/upload/v1596700848/Top-learner.png";
         Learner learner = mLearnerList.get(position);
+
+        int hours = mLearnerList.get(position).getHours();
+        String country = mLearnerList.get(position).getCountry();
+
         holder.name.setText(learner.getName());
-        holder.score.setText(learner.getHours().toString());
-        holder.country.setText(learner.getCountry());
+        holder.score.setText(new StringBuilder().append(hours).append(" learning hours, ").append(country).toString());
+//        holder.country.setText(learner.getCountry());
         Glide.with(mContext).load(url).into(holder.badgeUrl);
 
 

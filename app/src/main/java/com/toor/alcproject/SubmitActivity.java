@@ -3,10 +3,15 @@ package com.toor.alcproject;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.PagerAdapter;
 
+import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import okhttp3.ResponseBody;
@@ -67,7 +72,9 @@ public class SubmitActivity extends AppCompatActivity {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Toast.makeText(SubmitActivity.this, "success", Toast.LENGTH_LONG).show();
+              openDialog();
+
+                
             }
 
             @Override
@@ -75,5 +82,13 @@ public class SubmitActivity extends AppCompatActivity {
                 Toast.makeText(SubmitActivity.this, "error", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void openDialog() {
+
+
+        Intent intent = new Intent(this, ProceedActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

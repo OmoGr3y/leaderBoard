@@ -17,7 +17,7 @@ public class LeaderViewHolder extends RecyclerView.ViewHolder {
 
         name = itemView.findViewById(R.id.item_name);
         score = itemView.findViewById(R.id.item_detail_1);
-        country = itemView.findViewById(R.id.item_detail_2);
+//        country = itemView.findViewById(R.id.item_detail_2);
         badgeUrl = itemView.findViewById(R.id.badgeUrl);
     }
 }

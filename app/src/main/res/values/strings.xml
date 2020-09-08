@@ -1,8 +1,12 @@
 <resources>
-    <string name="app_name">Alcproject</string>
+    <string name="app_name">LEADERBOARD</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="project_submission">submit</string>
     <string name="project_on_github_link">Project on GITHUB(link)</string>
     <string name="submit">Submit</string>
+    <string name="hours">Learning Hours  </string>
+    <string name="skills">Skill IQ Score  </string>
+    <string name="positive_popup_text">Submission Successful</string>
+    <string name="negative_popup_text">Submission Not Successful</string>
 </resources>
